@@ -1,0 +1,46 @@
+import java.io.*;
+import java.util.*;
+
+public class Complex_Sort {
+	public static class Student implements Comparable<Student>{
+		String name;
+		int id;
+		
+		public Student(String name, int id) {
+			this.name = name;
+			this.id = id;
+		}
+		
+		public int compareTo(Student s2) {
+			if (!this.name.equals(s2.name))
+			{
+				return s2.name.compareTo(this.name);
+			}
+			else
+			{
+				return s2.id - this.id;
+			}
+		}
+		
+		public String toString() {
+			return name + " " + id;
+		}
+	}
+	public static void main(String[] args) throws IOException{
+		ArrayList<Student> students = new ArrayList<Student>();
+		Student s = new Student("Bob", 5);
+		students.add(s);
+		s = new Student("Bob", 2);
+		students.add(s);
+		s = new Student("Jack", 3);
+		students.add(s);
+		s = new Student("Jerry", 7);
+		students.add(s);
+		s = new Student("Abby", 9);
+		students.add(s);
+		s = new Student("Zach", 0);
+		students.add(s);
+		Collections.sort(students);
+		System.out.println(students);
+	}
+}

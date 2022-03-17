@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>USACO 2020_January_Bronze_3
+USACO 2020 January Contest, Bronze
+USACO 2020 January Contest, Bronze
+USACO 2020 January Contest, Bronze
+USACO 2020 January Contest, Bronze
+USACO 2020 January Contest, Bronze
+USACO 2020 January Contest, Bronze</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+</projectDescription>

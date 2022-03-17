@@ -1,0 +1,34 @@
+import java.io.*;
+import java.util.*;
+
+public class Binary_Search {
+	public static void main(String[] args) throws IOException{
+		
+		int[] nums = {6, 7};
+		
+		System.out.println(binary_search(nums, 5));
+		
+		
+	}
+	static int binary_search(int[] nums, int val){
+		int start = 0;
+		int end = nums.length - 1;
+		while (start <= end)
+		{
+			int middle = (start + end) / 2;
+			if (nums[middle] == val)
+			{
+				return middle;
+			}
+			else if (nums[middle] > val)
+			{
+				end = middle - 1;
+			}
+			else
+			{
+				start = middle + 1;
+			}
+		}
+		return -1;
+	}
+}

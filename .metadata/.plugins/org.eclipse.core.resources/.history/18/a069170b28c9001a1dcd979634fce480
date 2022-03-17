@@ -1,0 +1,77 @@
+import java.io.*;
+import java.util.*;
+
+public class Swapity_Swap {
+	public static void main(String[] args) throws IOException{
+		BufferedReader br = new BufferedReader(new FileReader("swap.in"));
+		
+		StringTokenizer st;
+		
+		st = new StringTokenizer(br.readLine());
+		int N = Integer.parseInt(st.nextToken());
+		int K = Integer.parseInt(st.nextToken());
+		int[][] swap = new int[2][2];
+		st = new StringTokenizer(br.readLine());
+		swap[0][0] = Integer.parseInt(st.nextToken());
+		swap[0][1] = Integer.parseInt(st.nextToken());
+		st = new StringTokenizer(br.readLine());
+		swap[1][0] = Integer.parseInt(st.nextToken());
+		swap[1][1] = Integer.parseInt(st.nextToken());
+		
+		/*
+		System.out.println(N + " " + K);
+		for (int i = 0; i < 2; i ++)
+		{
+			System.out.println(swap[i][0] + " " + swap[i][1]);
+		}
+		*/
+		
+		exchange(N, K, swap);
+		
+		PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter("swap.out")));
+		
+		pw.println();
+		pw.close();
+	}
+	static void exchange(int N, int K, int[][] swap){
+		int[] cow = new int[N];
+		for (int i = 0; i < N; i ++)
+		{
+			cow[i] = i + 1;
+			//System.out.print(cow[i] + " ");
+		}
+		for (int i = 0; i < K; i ++)
+		{
+			ArrayList<Integer> reverse = new ArrayList<>();
+			for (int j = swap[0][0] - 1; j < swap[0][1]; j ++)
+			{
+				reverse.add(0, cow[j]);
+			}
+			System.out.println(reverse);
+			int num = 0;
+			for (int j = swap[0][0] - 1; j < swap[0][1]; j ++)
+			{
+				cow[j] = reverse.get(num);
+				num ++;
+			}
+			
+			reverse = new ArrayList<>();
+			for (int j = swap[1][0] - 1; j < swap[1][1]; j ++)
+			{
+				reverse.add(0, cow[j]);
+			}
+			System.out.println(reverse);
+			num = 0;
+			for (int j = swap[1][0] - 1; j < swap[1][1]; j ++)
+			{
+				cow[j] = reverse.get(num);
+				num ++;
+			}
+		}
+		
+		for (int i = 0; i < N; i ++)
+		{
+			System.out.print(cow[i] + " ");
+		}
+	}
+}

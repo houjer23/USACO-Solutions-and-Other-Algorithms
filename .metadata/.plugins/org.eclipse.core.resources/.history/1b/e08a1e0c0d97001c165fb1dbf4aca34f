@@ -1,0 +1,143 @@
+import java.util.*;
+
+public class Email_Filing {
+	private static int T, M, N, K;
+	private static int sm, fm, sn, fn;
+	private static int[] f = new int[100010];
+	private static boolean[] done = new boolean[100010];
+	private static int[] last = new int[100010];
+	private static Map<Integer, Integer> screen = new HashMap<>();
+
+	public static void scroll() {
+	    while (sn <= fn) {
+	        if (!done[sn]) {
+	            screen.remove(f[sn]*N + sn-1);
+	            sn++;
+	            break;
+	        }
+	        sn++;
+	    }
+	    
+	    while (fn < N) {
+	        if (!done[fn+1]) {
+	            if (screen.size() < K) {
+	                screen.put(f[fn+1]*N + fn,fn+1);
+	                fn++;
+	                continue;
+	            } else {
+	                return;
+	            }
+	        }
+	        fn++;
+	    }
+
+	    while (sn > 1) {
+	        if (!done[sn-1]) {
+	            if (screen.size() < K) {
+	                screen.put(f[sn-1]*N + sn-2, sn-1);
+	                sn--;
+	                continue;
+	            } else {
+	                return;
+	            }
+	        }
+	        sn--;
+	    }
+
+		return;
+	}
+
+	public static void drag(int x) {
+		done[x] = true;
+	    screen.remove(f[x]*N + x-1);
+
+	    while (fn < N) {
+	        if (!done[fn+1]) {
+	            screen.put(f[fn+1]*N + fn, fn+1);
+	            fn++;
+	            return;
+	        }
+	        fn++;
+	    }
+
+	    while (sn > 1) {
+	        if (!done[sn-1]) {
+	            screen.put(f[sn-1]*N + sn-2, sn-1);
+	            sn--;
+	            return;
+	        }
+	        sn--;
+	    }
+		return;
+	}
+
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		T = scanner.nextInt();
+
+		while (T > 0) {
+			Arrays.fill(f, 0);
+			Arrays.fill(done, false);
+			Arrays.fill(last, 0);
+			screen = new HashMap<>();
+			M = scanner.nextInt();
+			N = scanner.nextInt();
+			K = scanner.nextInt();
+			for (int i = 1; i <= N; i++) {
+				f[i] = scanner.nextInt();
+				last[f[i]] = i;
+			}
+
+			sm = 1;
+	        fm = K;
+	        sn = 1;
+	        fn = K;
+	        for (int i = 1; i <= K; i++) {
+	            screen.put(f[i]*N + i-1, i);
+	        }
+
+	        boolean isValid = true;
+	        while (!screen.isEmpty()) {
+		        Optional<Integer> firstKey = screen.keySet().stream().findFirst();
+		        int key = firstKey.get();
+			    int folder = key / N;
+			    if (folder < sm) {
+			        isValid = false;
+			        break;
+			    }
+
+			    if (folder > fm) {
+			        if (last[sm] > fn) {
+			            scroll();
+			            continue;
+			        } else {
+			            sm++;
+			            fm++;
+			            continue;
+			        }
+			    }
+			    drag(screen.get(key));
+	        }
+
+	        for (int i = 1; i <= N; i++) {
+	            if (!done[i]) {
+	                isValid = false;
+	            }
+	            if (!isValid) {
+	                break;
+	            }
+	        }
+
+	        if (isValid) {
+	            System.out.println("YES");
+	        } else {
+	            System.out.println("NO");
+	        }
+
+	        T--;
+		}
+
+		return;
+	}
+ 
+}

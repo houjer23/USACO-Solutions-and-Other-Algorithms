@@ -1,0 +1,50 @@
+import java.io.*;
+import java.util.*;
+
+public class Sort {
+	public static void main(String[] args) throws IOException{
+		ArrayList<Integer> list = new ArrayList<>();
+		for (int i = 0; i < 10; i ++)
+		{
+			list.add((int) (Math.random() * 100));
+		}
+		System.out.println(list);
+		System.out.println(insertion_sort(list));
+	}
+	
+	static ArrayList<Integer> selection_sort(ArrayList<Integer> list){
+		for (int i = 0; i < list.size(); i ++)
+		{
+			int min = Integer.MAX_VALUE;
+			int pos = -1;
+			for (int j = i; j < list.size(); j ++)
+			{
+				if (list.get(j) < min)
+				{
+					min = list.get(j);
+					pos = j;
+				}
+			}
+			list.set(pos, list.get(i));
+			list.set(i, min);
+		}
+		return list;
+	}
+	
+	static ArrayList<Integer> insertion_sort(ArrayList<Integer> list){
+		for (int i = 1; i < list.size(); i ++)
+		{
+			for (int j = i - 1; j <= 0; j --)
+			{
+				System.out.println(j + " " + i);
+				if (list.get(j) < list.get(i))
+				{
+					list.add(j + 1, list.get(i));
+					list.remove(i);
+					break;
+				}
+			}
+		}
+		return list;
+	}
+}
